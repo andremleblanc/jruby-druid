@@ -14,8 +14,8 @@ describe Druid::Writer::Base do
   let(:time) { Time.now.utc.beginning_of_hour }
   let(:tranquilizer_1) { Druid::Writer::Tranquilizer::Base.new(tranquilizer_config_1) }
   let(:tranquilizer_2) { Druid::Writer::Tranquilizer::Base.new(tranquilizer_config_2) }
-  let(:tranquilizer_config_1) { { config: config, datasource: datasource_a, datapoint: datapoint_obj_1 } }
-  let(:tranquilizer_config_2) { { config: config, datasource: datasource_a, datapoint: datapoint_obj_2 } }
+  let(:tranquilizer_config_1) { { config: config, datasource: datasource_a, dimensions: datapoint_obj_1.dimensions, metrics: datapoint_obj_1.metrics } }
+  let(:tranquilizer_config_2) { { config: config, datasource: datasource_a, dimensions: datapoint_obj_2.dimensions, metrics: datapoint_obj_2.metrics } }
   let(:n) { 2 }
   let(:next_interval) { Time.now.utc.advance(hours: 1) }
 

@@ -25,7 +25,13 @@ module Druid
       private
 
       def build_tranquilizer(datasource, datapoint)
-        Druid::Writer::Tranquilizer::Base.new({config: config, datasource: datasource, datapoint: datapoint})
+        Druid::Writer::Tranquilizer::Base.new(
+          config: config,
+          datasource: datasource,
+          dimensions: datapoint.dimensions,
+          metrics: datapoint.metrics
+        )
+      end
       end
 
       def get_tranquilizer(datasource, datapoint)

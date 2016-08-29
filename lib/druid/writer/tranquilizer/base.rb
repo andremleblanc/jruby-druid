@@ -15,7 +15,7 @@ module Druid
         def initialize(params)
           @config = params[:config]
           @datasource = params[:datasource].to_s
-          @rollup = Druid::Writer::Tranquilizer::Rollup.build(config, params[:datapoint])
+          @rollup = Druid::Writer::Tranquilizer::Rollup.build(config: config, dimensions: params[:dimensions], metrics: params[:metrics])
           @tuning = Druid::Writer::Tranquilizer::Tuning.build(config)
           @curator = Druid::Writer::Tranquilizer::Curator.build(config)
           @service = create_service
