@@ -67,7 +67,7 @@ describe Druid::Writer::Base do
       let(:datasource_b) { 'writer_base_b' }
 
       context 'with no schema change' do
-        let(:tranquilizer_config_2) { { config: config, datasource: datasource_b, datapoint: datapoint_obj_1 } }
+        let(:tranquilizer_config_2) { { config: config, datasource: datasource_b, dimensions: datapoint_obj_1.dimensions, metrics: datapoint_obj_1.metrics } }
 
         it 'builds a tranquilizer for each datasource and reuse them' do
           expect(Druid::Writer::Tranquilizer::Base).to receive(:new).twice.and_return(tranquilizer_1, tranquilizer_2)
@@ -82,10 +82,10 @@ describe Druid::Writer::Base do
 
       context 'with schema change' do
         let(:tranquilizer_3) { Druid::Writer::Tranquilizer::Base.new(tranquilizer_config_3) }
-        let(:tranquilizer_config_3) { { config: config, datasource: datasource_b, datapoint: datapoint_obj_1 } }
+        let(:tranquilizer_config_3) { { config: config, datasource: datasource_b, dimensions: datapoint_obj_1.dimensions, metrics: datapoint_obj_1.metrics } }
 
         let(:tranquilizer_4) { Druid::Writer::Tranquilizer::Base.new(tranquilizer_config_4) }
-        let(:tranquilizer_config_4) { { config: config, datasource: datasource_b, datapoint: datapoint_obj_2 } }
+        let(:tranquilizer_config_4) { { config: config, datasource: datasource_b, dimensions: datapoint_obj_2.dimensions, metrics: datapoint_obj_2.metrics } }
 
         it 'builds a tranquilizer for each datasource and reuse them and rebuild when the schema changes' do
           expect(Druid::Writer::Tranquilizer::Base).to receive(:new).exactly(4).times.and_return(tranquilizer_1, tranquilizer_2, tranquilizer_3, tranquilizer_4)

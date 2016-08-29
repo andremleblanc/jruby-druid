@@ -32,7 +32,6 @@ module Druid
           metrics: datapoint.metrics
         )
       end
-      end
 
       def get_tranquilizer(datasource, datapoint)
         tranquilizer = tranquilizer_for_datasource(datasource)
