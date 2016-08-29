@@ -62,7 +62,7 @@ module Druid
         response = connection.get(DATASOURCES_PATH + datasource_name + '/segments', full: true)
         case response.code.to_i
         when 200
-          JSON.parse(response.body).map{ |segment| segment['identifier'] }
+          JSON.parse(response.body)
         when 204
           []
         else

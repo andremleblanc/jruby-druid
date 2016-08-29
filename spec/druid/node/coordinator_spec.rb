@@ -171,14 +171,14 @@ describe Druid::Node::Coordinator do
   describe '#list_segments' do
     let(:mapped_segments) { segments.map{ |segment| segment[:identifier] } }
     let(:path) { coordinator_path + datasource_name + '/segments?full=true' }
-    let(:segment_1) { { identifier: 'segment_1' } }
-    let(:segment_2) { { identifier: 'segment_2' } }
+    let(:segment_1) { { "identifier" => 'segment_1' } }
+    let(:segment_2) { { "identifier" => 'segment_2' } }
     let(:segments) { [ segment_1, segment_2 ] }
 
     context 'when request returns a 200' do
       it 'returns segments' do
         stub_request(:get, path).to_return(status: 200, body: JSON.generate(segments))
-        expect(subject.list_segments(datasource_name)).to eq mapped_segments
+        expect(subject.list_segments(datasource_name)).to eq segments
       end
     end
 
