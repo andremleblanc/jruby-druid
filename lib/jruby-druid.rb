@@ -19,6 +19,7 @@ require "druid/node/overlord"
 
 require "druid/queries/core"
 require "druid/queries/datasource"
+require "druid/queries/metadata"
 require "druid/queries/task"
 
 require "druid/writer/base"

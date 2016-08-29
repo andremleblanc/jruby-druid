@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'support/shared_examples/for_logging'
 require 'support/shared_examples/for_query_core'
 require 'support/shared_examples/for_query_datasource'
+require 'support/shared_examples/for_query_metadata'
 require 'support/shared_examples/for_query_task'
 
 describe Druid::Client do
@@ -12,6 +13,7 @@ describe Druid::Client do
     include_examples 'for_logging'
     include_examples 'for_query_core'
     include_examples 'for_query_datasource'
+    include_examples 'for_query_metadata'
     include_examples 'for_query_task'
   end
 
