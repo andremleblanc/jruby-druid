@@ -9,7 +9,7 @@ module Druid
             aggs = []
             count = metrics.delete(:count)
             aggs << CountAggregatorFactory.new(COUNT) if count.present?
-            metrics.keys.each do |metric_name|
+            metrics.each do |metric_name|
               aggs << LongSumAggregatorFactory.new(metric_name, metric_name)
             end
 

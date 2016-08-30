@@ -6,7 +6,7 @@ module Druid
           java_import com.metamx.tranquility.druid.DruidDimensions
 
           def build(dimensions)
-            dimensions_list = ImmutableList.of(*dimensions.keys)
+            dimensions_list = ImmutableList.of(*dimensions)
             DruidDimensions.specific(dimensions_list)
           end
         end

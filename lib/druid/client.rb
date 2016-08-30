@@ -18,7 +18,7 @@ module Druid
       @coordinator = Druid::Node::Coordinator.new(config)
       setup_logger
       @overlord = Druid::Node::Overlord.new(config)
-      @writer = Druid::Writer::Base.new(config)
+      @writer = Druid::Writer::Base.new(config, broker)
     end
 
     private

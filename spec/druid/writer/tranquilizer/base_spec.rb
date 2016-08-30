@@ -21,6 +21,24 @@ describe Druid::Writer::Tranquilizer::Base do
     end
   end
 
+  describe '#dimensions' do
+    context 'first call' do
+      it 'combines the current schema with the dimensions being passed in' do
+
+      end
+    end
+
+    context 'second call' do
+      it 'uses the memoized value' do
+
+      end
+    end
+  end
+
+  describe '#metric_keys' do
+
+  end
+
   describe '#safe_send' do
     xit 'needs ZK; returns a future' do
       pending('Needs ZK to run')
