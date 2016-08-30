@@ -29,8 +29,6 @@ module Druid
       def build_tranquilizer(datasource, datapoint)
         current_schema = most_recent_segment_metadata(datasource)
 
-        puts "current_schema: #{current_schema}"
-
         Druid::Writer::Tranquilizer::Base.new(
           config: config,
           datasource: datasource,
@@ -41,7 +39,6 @@ module Druid
 
       def build_dimensions(current_schema, datapoint)
         current_dimensions = current_schema.present? ? current_schema['columns'].except('__time').keys : []
-        puts "built dimensions: #{current_dimensions | datapoint.dimensions.keys}"
         current_dimensions | datapoint.dimensions.keys
       end
 
@@ -49,7 +46,6 @@ module Druid
         # TODO: To allow metrics with different aggregator types, use values here
         #       and modify how aggregators are built
         current_metrics = current_schema.present? ? current_schema['aggregators'].keys : []
-        puts "built metrics: #{current_metrics | datapoint.metrics.keys}"
         current_metrics | datapoint.metrics.keys
       end
 
@@ -61,7 +57,6 @@ module Druid
       end
 
       def get_tranquilizer(datasource, datapoint)
-        puts "GET TRANQ"
         tranquilizer = tranquilizer_for_datasource(datasource)
 
         unless has_current_schema?(tranquilizer, datapoint)
@@ -79,10 +74,6 @@ module Druid
         current_metrics = current_metrics_schema(tranquilizer)
         datapoint_dimensions = datapoint.dimensions.keys
         datapoint_metrics = datapoint.metrics.except(:count).keys
-        puts "current_dimensions: #{current_dimensions}"
-        puts "datapoint_dimensions: #{datapoint_dimensions}"
-        puts "current_metrics: #{current_metrics}"
-        puts "datapoint_metrics: #{datapoint_metrics}"
         (current_dimensions & datapoint_dimensions) == datapoint_dimensions && (current_metrics & datapoint_metrics) == datapoint_metrics
       end
 

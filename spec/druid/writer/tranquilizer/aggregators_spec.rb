@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Druid::Writer::Tranquilizer::Aggregators do
   subject { Druid::Writer::Tranquilizer::Aggregators }
   describe '.build' do
-    let(:metrics) { { anvils: 1, count: true } }
+    let(:metrics) { { anvils: 1, count: true }.keys }
     let(:result) { subject.build(metrics) }
 
     it 'builds an ImmutableList' do

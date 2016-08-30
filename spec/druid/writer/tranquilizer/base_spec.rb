@@ -8,7 +8,7 @@ describe Druid::Writer::Tranquilizer::Base do
   let(:datasource_name) { 'baz' }
   let(:dimensions) { { 'manufacturer' => 'ACME' } }
   let(:metrics) { { 'anvils' => 1 } }
-  let(:params) {{ config: config, datasource: datasource_name, dimensions: datapoint.dimensions, metrics: datapoint.metrics }}
+  let(:params) {{ config: config, datasource: datasource_name, dimensions: datapoint.dimensions.keys, metrics: datapoint.metrics.keys }}
 
   describe '.new' do
     context 'with no params' do

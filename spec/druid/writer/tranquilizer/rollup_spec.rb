@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Druid::Writer::Tranquilizer::Rollup do
   subject { Druid::Writer::Tranquilizer::Rollup }
-  let(:args) { { config: config, dimensions: dimensions, metrics: metrics } }
+  let(:args) { { config: config, dimensions: dimensions.keys, metrics: metrics.keys } }
   let(:config) { Druid::Configuration.new() }
   let(:dimensions) { { 'manufacturer' => 'ACME' } }
   let(:metrics) { { 'anvils' => 1 } }

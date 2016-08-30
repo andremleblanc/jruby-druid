@@ -93,7 +93,7 @@ describe Druid::Writer::Base do
 
         it 'builds a tranquilizer for each datasource and reuse them' do
           expect(Druid::Writer::Tranquilizer::Base).to receive(:new).twice.and_call_original
-          expect(subject).to receive(:most_recent_segment_metadata).and_return([])
+          expect(subject).to receive(:most_recent_segment_metadata).twice.and_return([])
           expect(subject).to receive(:send).exactly(n * 2).times
 
           n.times { subject.write_point(datasource_a, datapoint_1) }
@@ -103,15 +103,13 @@ describe Druid::Writer::Base do
       end
 
       context 'with schema change' do
-        let(:tranquilizer_3) { Druid::Writer::Tranquilizer::Base.new(tranquilizer_config_3) }
-        let(:tranquilizer_config_3) { { config: config, datasource: datasource_b, dimensions: datapoint_obj_1.dimensions, metrics: datapoint_obj_1.metrics } }
-
-        let(:tranquilizer_4) { Druid::Writer::Tranquilizer::Base.new(tranquilizer_config_4) }
-        let(:tranquilizer_config_4) { { config: config, datasource: datasource_b, dimensions: datapoint_obj_2.dimensions, metrics: datapoint_obj_2.metrics } }
+        let(:metadata) { { 'aggregators' => aggregators, 'columns' => columns } }
+        let(:aggregators) { { 'anvils' => { 'type' => 'longSum', name: 'anvils', fieldName: 'anvils'} } }
+        let(:columns) { { '__time' => Time.now.utc.iso8601, 'manufacturer' => {} } }
 
         it 'builds a tranquilizer for each datasource and reuse them and rebuild when the schema changes' do
-          expect(Druid::Writer::Tranquilizer::Base).to receive(:new).exactly(4).times.and_call_original
-          expect(subject).to receive(:most_recent_segment_metadata).with(datasource_a)
+          expect(Druid::Writer::Tranquilizer::Base).to receive(:new).exactly(n * 2).times.and_call_original
+          expect(subject).to receive(:most_recent_segment_metadata).exactly(n * 2).times.and_return([], metadata, [], metadata)
           expect(subject).to receive(:send).exactly(n * 6).times
 
           n.times { subject.write_point(datasource_a, datapoint_1) }
